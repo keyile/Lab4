@@ -1,30 +1,41 @@
-package lab1.functionPanel;
-import Dot.*;
-import lab1.AppMainWindow;
-import lab1.MyIconButton;
+package gui.functionPanel;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
 import java.util.Objects;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import gui.AppMainWindow;
+import gui.MyIconButton;
 
 /**
  * Created by Hunter on 2017/9/22.
  */
-public class CalcShortestPathPanel extends JPanel {
+public class QueryBridgeWordsPanel extends JPanel {
 
-    public final static ImageIcon ICON_STOP = new ImageIcon(
-            AppMainWindow.class.getResource("20170925175557.png"));
-    public final static ImageIcon ICON_STOP_ENABLE = new ImageIcon(
-            AppMainWindow.class.getResource("20170925175632.png"));
-    public final static ImageIcon ICON_SYNC_NOW = new ImageIcon(
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8600143969382162647L;
+	public static final ImageIcon ICON_STOP = new ImageIcon(
             AppMainWindow.class.getResource("20170925175935.png"));
-    public final static ImageIcon ICON_SYNC_NOW_ENABLE = new ImageIcon(
+    public static final ImageIcon ICON_STOP_ENABLE = new ImageIcon(
             AppMainWindow.class.getResource("20170925175903.png"));
+    public static final ImageIcon ICON_SYNC_NOW = new ImageIcon(
+            AppMainWindow.class.getResource("20170925175557.png"));
+    public static final ImageIcon ICON_SYNC_NOW_ENABLE = new ImageIcon(
+            AppMainWindow.class.getResource("20170925175632.png"));
 
-    public final static int MAIN_H_GAP = 25;
+    public static final int MAIN_H_GAP = 25;
 
     public static JPanel DownPanel = new JPanel();
 
@@ -34,7 +45,9 @@ public class CalcShortestPathPanel extends JPanel {
     public static JTextField SecondWord;
     public static JTextField QueryWord;
 
-    public CalcShortestPathPanel()
+    public static String QueryWords;
+
+    public QueryBridgeWordsPanel()
     {
         super(true);
         initialize();
@@ -45,7 +58,7 @@ public class CalcShortestPathPanel extends JPanel {
     private void initialize()
     {
         this.setBackground(Color.WHITE);
-        this.setLayout(new BorderLayout(5,50));
+        this.setLayout(new BorderLayout(5,30));
     }
 
     private void addComponent()
@@ -60,8 +73,8 @@ public class CalcShortestPathPanel extends JPanel {
         JPanel UpPanel = new JPanel();
         UpPanel.setBackground(Color.WHITE);
         UpPanel.setLayout(new FlowLayout(FlowLayout.CENTER,25,5));
-        JLabel TitleLable = new JLabel("Calculate Shortest Path");
-        TitleLable.setFont(new Font("",1,24));
+        JLabel TitleLable = new JLabel("Query Bridge Words");
+        TitleLable.setFont(new Font("",Font.BOLD,24));
         UpPanel.add(TitleLable);
         return UpPanel;
     }
@@ -75,8 +88,8 @@ public class CalcShortestPathPanel extends JPanel {
         JPanel gridPanel2 = new JPanel();
         gridPanel1.setBackground(Color.WHITE);
         gridPanel2.setBackground(Color.WHITE);
-        gridPanel1.setLayout(new FlowLayout(FlowLayout.CENTER,10,0));
-        gridPanel2.setLayout(new FlowLayout(FlowLayout.CENTER,10,0));
+        gridPanel1.setLayout(new FlowLayout(FlowLayout.CENTER,5,0));
+        gridPanel2.setLayout(new FlowLayout(FlowLayout.CENTER,5,0));
         JLabel word1 = new JLabel("first word");
         word1.setFont(new Font("",0,16));
         JLabel word2 = new JLabel("second word");
@@ -95,10 +108,10 @@ public class CalcShortestPathPanel extends JPanel {
         JPanel gridPanel3 = new JPanel();
         gridPanel3.setBackground(Color.WHITE);
         gridPanel3.setLayout(new FlowLayout(FlowLayout.CENTER,60,0));
-        ok = new MyIconButton(ICON_STOP, ICON_STOP_ENABLE,
-                ICON_STOP, "");
-        clear = new MyIconButton(ICON_SYNC_NOW, ICON_SYNC_NOW_ENABLE,
+        ok = new MyIconButton(ICON_SYNC_NOW,ICON_SYNC_NOW_ENABLE ,
                 ICON_SYNC_NOW, "");
+        clear = new MyIconButton(ICON_STOP, ICON_STOP_ENABLE,
+                ICON_STOP, "");
         gridPanel3.add(clear);
         gridPanel3.add(ok);
 
@@ -111,8 +124,14 @@ public class CalcShortestPathPanel extends JPanel {
     private JPanel getDownPanel()
     {
         DownPanel.setBackground(Color.WHITE);
-        DownPanel.setLayout(new GridLayout(1,1));
-
+        DownPanel.setLayout(new FlowLayout(FlowLayout.CENTER,10,0));
+        JLabel queryWord = new JLabel("query words: ");
+        queryWord.setFont(new Font("",0,16));
+        QueryWord = new JTextField();
+        QueryWord.setPreferredSize(new Dimension(450,60));
+        DownPanel.add(queryWord);
+        DownPanel.add(QueryWord);
+        //DownPanel.setVisible(false);
         return DownPanel;
     }
 
@@ -122,57 +141,23 @@ public class CalcShortestPathPanel extends JPanel {
         {
             public void actionPerformed(ActionEvent event)
             {
-                String fw = null;
-                String sw = null;
-                fw = FirstWord.getText().toString().trim();
-                sw = SecondWord.getText().toString().trim();
-                System.out.println(fw);
-                System.out.println(sw);
-                AppMainWindow.FirstShortestPathfilePath = null;
-                if(!AppMainWindow.graph.exist(fw))
+                String fw = FirstWord.getText().toString().trim();
+                String sw = SecondWord.getText().toString().trim();
+                if(Objects.equals(fw, "") || Objects.equals(sw,""))
                 {
-                    AppMainWindow.ReInputFlag = 3;
+                    AppMainWindow.ReInputFlag = 2;
                     FirstWord.setText("");
                     SecondWord.setText("");
                     AppMainWindow.window.ErrorSize();
                     AppMainWindow.mainPanel.removeAll();
                     AppMainWindow.mainPanel.add(AppMainWindow.inputErrorpanel,BorderLayout.CENTER);
                     AppMainWindow.mainPanel.updateUI();
-                }
-                else if(AppMainWindow.graph.exist(fw) && !AppMainWindow.graph.exist(sw))
+                } else
                 {
-                    LinkedList<LinkedList<String>> dotSource = AppMainWindow.graph.toDot(fw);
-                    DotCompiler.clearCache();
-                    int i = 0, j = 0;
-
-                    for (LinkedList<String> toCertainWordSource : dotSource) {
-                        j = 0;
-                        for (String source : toCertainWordSource) {
-                            String filename = DotCompiler.saveTempFile("tempfile " + i
-                                    + "-" + (j++), source);
-                            if (AppMainWindow.FirstShortestPathfilePath == null)
-                                AppMainWindow.FirstShortestPathfilePath = filename;
-                        }
-                        ++i;
-                    }
-                    ShowShortestPathPanel a = new ShowShortestPathPanel();
-//第一个地址为空 就不现实  不为空就 下一张这么来
+                    QueryWords = AppMainWindow.graph.queryBridgeWords(fw, sw);
+                    QueryWord.setText(QueryWords);
                 }
-                else if(AppMainWindow.graph.exist(fw) && AppMainWindow.graph.exist(sw))
-                {
-                    int j = 0;
-                    DotCompiler.clearCache();
-                    LinkedList<String> dotSource = AppMainWindow.graph.toDot(fw, sw);
-                    //String filePath = null;
-                    for (String path : dotSource) {
-                        String filename = DotCompiler.saveTempFile("tempfile " + (j++), path);
-                        if (AppMainWindow.FirstShortestPathfilePath == null)
-                            AppMainWindow.FirstShortestPathfilePath = filename;
-                    }
-                    ShowShortestPathPanel a = new ShowShortestPathPanel();
-                    // 同上
-                }
-                DownPanel.setVisible(true);
+                //DownPanel.setVisible(true);
             }
         });
 
@@ -182,6 +167,7 @@ public class CalcShortestPathPanel extends JPanel {
             {
                 FirstWord.setText("");
                 SecondWord.setText("");
+                QueryWord.setText("");
                 AppMainWindow.mainPanel.removeAll();
                 AppMainWindow.mainPanel.add(AppMainWindow.functionChoosepanel,BorderLayout.CENTER);
                 AppMainWindow.mainPanel.updateUI();

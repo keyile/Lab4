@@ -1,25 +1,36 @@
-package lab1.functionPanel;
+package gui.functionPanel;
 
-import lab1.AppMainWindow;
-import lab1.MyIconButton;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import gui.AppMainWindow;
+import gui.MyIconButton;
 
 /**
  * Created by Hunter on 2017/9/22.
  */
 public class GenerateNewTextPanel extends JPanel {
 
-    public final static ImageIcon ICON_STOP = new ImageIcon(
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3522771420473808988L;
+	public static final ImageIcon ICON_STOP = new ImageIcon(
             AppMainWindow.class.getResource("20170925175557.png"));
-    public final static ImageIcon ICON_STOP_ENABLE = new ImageIcon(
+    public static final ImageIcon ICON_STOP_ENABLE = new ImageIcon(
             AppMainWindow.class.getResource("20170925175632.png"));
-    public final static ImageIcon ICON_SYNC_NOW = new ImageIcon(
+    public static final ImageIcon ICON_SYNC_NOW = new ImageIcon(
             AppMainWindow.class.getResource("20170925175935.png"));
-    public final static ImageIcon ICON_SYNC_NOW_ENABLE = new ImageIcon(
+    public static final ImageIcon ICON_SYNC_NOW_ENABLE = new ImageIcon(
             AppMainWindow.class.getResource("20170925175903.png"));
 
     public static JTextField InputArea;

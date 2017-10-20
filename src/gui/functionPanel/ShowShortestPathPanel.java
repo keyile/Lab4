@@ -1,26 +1,41 @@
-package lab1.functionPanel;
+package gui.functionPanel;
 
-import Graph.Graph;
-import lab1.AppMainWindow;
-import lab1.MyIconButton;
-
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
-import java.awt.*;
+
+import gui.AppMainWindow;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
-import java.io.*;
+
 
 /**
  * Created by Hunter on 2017/9/25.
  */
-public class ShowShortestPathPanel extends JFrame{
+public class ShowShortestPathPanel extends JFrame {
 
-    public final static int MAIN_WINDOW_X = 120;
-    public final static int MAIN_WINDOW_Y = 50;
-    public final static int MAIN_WINDOW_WIDTH = 1200;
-    public final static int MAIN_WINDOW_HEIGHT = 1000;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -755307828384411428L;
+	
+	public static final int MAIN_WINDOW_X = 120;
+    public static final int MAIN_WINDOW_Y = 50;
+    public static final int MAIN_WINDOW_WIDTH = 1200;
+    public static final int MAIN_WINDOW_HEIGHT = 1000;
 
     public static JButton preImgbutton;
     public static JButton nextImgbutton;
@@ -54,19 +69,21 @@ public class ShowShortestPathPanel extends JFrame{
     {
         File firstFile = new File(AppMainWindow.FirstShortestPathfilePath);
         File[] fileList = firstFile.getParentFile().listFiles();
-        for (int i = 0; i < fileList.length; i++) {
-            if (fileList[i].isFile()) {
-                String[] part = fileList[i].getName().split("\\.");
-                if (part[1].equals("png") || part[1].equals("PNG") ) {
-                    //System.out.println(part[1]);
-                    list.add(fileList[i].getAbsolutePath());
-                    num++;
-                    //System.out.println(fileList[i].getAbsoluteFile());
-                    if (fileList[i].getAbsolutePath().equals(AppMainWindow.FirstShortestPathfilePath)) {
-                        count = num;
-                    }
-                }
-            }
+        if(fileList != null) {
+        	for (int i = 0; i < fileList.length; i++) {
+        		if (fileList[i].isFile()) {
+        			String[] part = fileList[i].getName().split("\\.");
+        			if (part[1].equals("png") || part[1].equals("PNG")) { //这个地方有时候会抛出异常
+        				//System.out.println(part[1]);
+        				list.add(fileList[i].getAbsolutePath());
+        				num++;
+        				//System.out.println(fileList[i].getAbsoluteFile());
+        				if (fileList[i].getAbsolutePath().equals(AppMainWindow.FirstShortestPathfilePath)) {
+        					count = num;
+        				}
+        			}
+        		}
+        	}
         }
         //嵌入框架
         this.setLayout(new BorderLayout());
@@ -184,7 +201,7 @@ public class ShowShortestPathPanel extends JFrame{
                 } else {
                     //给出警告信息
                     GraphLabel.setIcon(null);
-                    GraphLabel.setText( "已经是最后一张图片！");
+                    GraphLabel.setText("已经是最后一张图片！");
                     GraphLabel.setFont(new Font("",0,16));
                     if(count < num)
                     {

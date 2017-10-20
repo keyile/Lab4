@@ -1,7 +1,15 @@
-package Graph;
+package graph;
+
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
+import java.util.Objects;
+import java.util.Scanner;
+import java.util.Vector;
+
 
 public class Graph {
 	private static class Edge {
@@ -30,11 +38,13 @@ public class Graph {
 			return Objects.hash(v1, v2);
 		}
 	}
+	
 	private static class Vertex {
 		String word;
 		int outDegree = 0;
 		Edge toEdge;
 		Edge fromEdge;
+		
 		Vertex(String theWord) {
 			word = theWord;
 		}
@@ -43,22 +53,22 @@ public class Graph {
 	 * @deprecated 
 	 * @author Vegetable
 	 */
-	@SuppressWarnings("unused")
-	private class RecordInContainer {
-		String word;
-		int index;
-		@Override public boolean equals(Object otherObject) {
-			if (this == otherObject)	return true;
-			if (otherObject == null) 	return false;
-			if (getClass() != otherObject.getClass())	return false;
-			RecordInContainer other = (RecordInContainer)otherObject;
-			return index == other.index
-					&& Objects.equals(word, other.word);
-		}
-		@Override public int hashCode() {
-			return Objects.hash(word, index);
-		}
-	}
+	
+//	@SuppressWarnings("unused")
+//	private class RecordInContainer {
+//		String word;
+//		int index;
+//		@Override public boolean equals(Object otherObject) {
+//			if (this == otherObject)	return true;
+//			if (otherObject == null) 	return false;
+//			if (getClass() != otherObject.getClass())	return false;
+//			RecordInContainer other = (RecordInContainer)otherObject;
+//			return index == other.index && Objects.equals(word, other.word);
+//		}
+//		@Override public int hashCode() {
+//			return Objects.hash(word, index);
+//		}
+//	}
 	
 	private Vector<Vertex> vertex;
 	private HashMap<String, Integer> str2Idx;
@@ -69,7 +79,8 @@ public class Graph {
 		str2Idx = new HashMap<String, Integer>();
 		Scanner in = new Scanner(Paths.get(filePath), "UTF-8");
 		in.useDelimiter("[^a-zA-Z]+");
-		String word1 = null, word2 = null;
+		String word1 = null;
+		String word2 = null;
 		while (in.hasNext()) {
 			word2 = in.next().toLowerCase();
 			AddEdge(word1, word2);
@@ -83,8 +94,10 @@ public class Graph {
 			Edge e = vertex.get(path.get(i)).toEdge;
 			while (e != null && e.v2 != path.get(i + 1))
 				e = e.toEdge;
-			if (e == null)
-				throw new RuntimeException("Path Error");
+			if (e == null) {
+				RuntimeException exception = new RuntimeException("Path Error");
+				throw exception;
+			}
 			e.color = "red";
 		}
 	}
@@ -94,8 +107,10 @@ public class Graph {
 			Edge e = vertex.get(path.get(i)).toEdge;
 			while (e != null && e.v2 != path.get(i + 1))
 				e = e.toEdge;
-			if (e == null)
-				throw new RuntimeException("Path Error");
+			if (e == null) {
+				RuntimeException exception = new RuntimeException("Path Error");
+				throw exception;
+			}
 			e.color = "black";
 		}
 	}
@@ -267,7 +282,8 @@ public class Graph {
 			distance.add(Integer.MAX_VALUE);
 			parent.add(null);
 		}
-		int index1 = str2Idx.get(word1), index2 = str2Idx.get(word2);
+		int index1 = str2Idx.get(word1);
+		int index2 = str2Idx.get(word2);
 		int currentDistance = 0;
 		int currentIndex = index1;
 		nextDistance.add(currentIndex);
@@ -346,10 +362,10 @@ public class Graph {
 	}
 
 	public LinkedList<LinkedList<String>> toDot(String word) {
-		word.toLowerCase();
+		String newWord = word.toLowerCase();
 		LinkedList<LinkedList<String>> ret = new LinkedList<>();
 		LinkedList<LinkedList<LinkedList<Integer>>> toOthersPathSet
-			= getShortestPath(word);
+			= getShortestPath(newWord);
 		for (LinkedList<LinkedList<Integer>> pathSet : toOthersPathSet) {
 			LinkedList<String> toCertainWord = new LinkedList<String>();
 			for (LinkedList<Integer> path : pathSet) {
@@ -363,12 +379,13 @@ public class Graph {
 	}
 	
 	public static class TestBed {
-		public static void main(String args[]) throws IOException {
+		public static void main(String[] args) throws IOException {
 			Graph g = new Graph("test.txt");
 			System.out.println("***********************************");
 			System.out.println("Query bridge words (quit to quit) :");
 			Scanner in = new Scanner(System.in);
-			String word1 = null, word2 = null;
+			String word1 = null; 
+			String word2 = null;
 			while (!Objects.equals(word1 = in.next(), "quit")) {
 				word2 = in.next();
 				System.out.println(g.queryBridgeWords(word1, word2));
@@ -406,19 +423,19 @@ public class Graph {
 				System.out.println(g.toDot(word1, word2));
 			}
 			LinkedList<LinkedList<String>> dotSource = g.toDot("to");
-			LinkedList<LinkedList<String>> filePath = new LinkedList<>();
-			int i = 0, j = 0;
+			int j = 0 ;
+			int i = 0 ;
 			for (LinkedList<String> toCertainWordSource : dotSource) {
 				j = 0;
 				LinkedList<String> toCertainWordFilePath = new LinkedList<>();
 				for (String source : toCertainWordSource) {
-					String filename = Dot.DotCompiler.saveTempFile("tempfile " + i
+					String filename = dot.DotCompiler.saveTempFile("tempfile " + i
 							+ "-" + (j++), source);
 					toCertainWordFilePath.addLast(filename);
 				}
 				++i;
 			}
-			Dot.DotCompiler.clearCache();
+			dot.DotCompiler.clearCache();
 			in.close();
 		}
 	}

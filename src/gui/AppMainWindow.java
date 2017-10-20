@@ -1,23 +1,33 @@
-package lab1;
+package gui;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
+
+import graph.Graph;
+import gui.functionPanel.CalcShortestPathPanel;
+import gui.functionPanel.FunctionChoosePanel;
+import gui.functionPanel.GenerateNewTextPanel;
+import gui.functionPanel.InputErrorPanel;
+import gui.functionPanel.QueryBridgeWordsPanel;
+import gui.functionPanel.RandomWalkPanel;
 
 
-
-import Graph.Graph;
-import lab1.functionPanel.*;
-
-import javax.swing.*;
-import java.awt.*;
 
 
 public class AppMainWindow {
 
-    /**
+    /**.
      * 主窗口大小
      */
-    public final static int MAIN_WINDOW_X = 240;
-    public final static int MAIN_WINDOW_Y = 100;
-    public final static int MAIN_WINDOW_WIDTH = 700;//885
-    public final static int MAIN_WINDOW_HEIGHT = 500;//636
+    public static final int MAIN_WINDOW_X = 240;
+    public static final int MAIN_WINDOW_Y = 100;
+    public static final int MAIN_WINDOW_WIDTH = 700;//885
+    public static final int MAIN_WINDOW_HEIGHT = 500;//636
 
     public static int ReInputFlag = 0;
 
@@ -44,16 +54,14 @@ public class AppMainWindow {
     public static RandomWalkPanel randomWalkpanel;
 
 
-    /**
+    /**.
      * 程序入口main
      */
     public static void main(String[] args) {
-        try
+        try 
         {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         EventQueue.invokeLater(new Runnable() {
@@ -72,14 +80,14 @@ public class AppMainWindow {
         });
     }
 
-    /**
+    /**.
      * 构造，创建APP
      */
     public AppMainWindow() {
         initialize();
     }
 
-    /**
+    /**.
      * 初始化frame内容
      */
     private void initialize()
@@ -127,7 +135,7 @@ public class AppMainWindow {
 
     public  void ErrorSize()
     {
-        frame.setBounds(MAIN_WINDOW_X*2,MAIN_WINDOW_Y*2,MAIN_WINDOW_WIDTH/2,MAIN_WINDOW_HEIGHT/2);
+        frame.setBounds(MAIN_WINDOW_X * 2,MAIN_WINDOW_Y * 2,MAIN_WINDOW_WIDTH / 2,MAIN_WINDOW_HEIGHT / 2);
     }
 
 }

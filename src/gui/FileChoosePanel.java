@@ -1,17 +1,27 @@
-package lab1;
+package gui;
 
-import Dot.DotCompiler;
-import lab1.MyIconButton;
+import dot.DotCompiler;
+import graph.Graph;
+import gui.MyIconButton;
 
-import Graph.*;
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 //import java.io.FileFilter;
-import javax.swing.filechooser.*;
+
 
 
 /**
@@ -21,20 +31,25 @@ public class FileChoosePanel extends JPanel {
 
 
 
-    public final static ImageIcon ICON_STOP = new ImageIcon(
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    public static final ImageIcon ICON_STOP = new ImageIcon(
             AppMainWindow.class.getResource("20170924151910.png"));
 
-    public final static ImageIcon ICON_STOP_ENABLE = new ImageIcon(
+    public static final ImageIcon ICON_STOP_ENABLE = new ImageIcon(
             AppMainWindow.class.getResource("20170924151954.png"));
 
-    public final static ImageIcon ICON_SYNC_NOW = new ImageIcon(
+    public static final ImageIcon ICON_SYNC_NOW = new ImageIcon(
             AppMainWindow.class.getResource("20170924152301.png"));
 
-    public final static ImageIcon ICON_SYNC_NOW_ENABLE = new ImageIcon(
+    public static final ImageIcon ICON_SYNC_NOW_ENABLE = new ImageIcon(
             AppMainWindow.class.getResource("20170924152222.png"));
 
 
-    public final static int MAIN_H_GAP = 25;
+    public static final int MAIN_H_GAP = 25;
 
     private Image img;
 
@@ -44,7 +59,7 @@ public class FileChoosePanel extends JPanel {
     public JFileChooser chooser = new  JFileChooser();
 
 
-    /**
+    /**.
      * 构造
      */
     public FileChoosePanel()
@@ -57,7 +72,7 @@ public class FileChoosePanel extends JPanel {
         addListener();
     }
 
-    /**
+    /**.
      * 初始化
      */
     private void initialize() {
@@ -65,7 +80,7 @@ public class FileChoosePanel extends JPanel {
         this.setLayout(new GridLayout(2,1));
     }
 
-    /**
+    /**.
      * 添加组件
      */
     private void addComponent() {
@@ -77,14 +92,18 @@ public class FileChoosePanel extends JPanel {
     {
         JPanel UpPanel = new JPanel()
         {
-            public void paint(Graphics g)
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = -923718874926667153L;
+
+			public void paint(Graphics g)
             {
                 try
                 {
                     img = ImageIO.read(new File(AppMainWindow.class.getResource("20170923160526.png").toURI()));
                     g.drawImage(img,0,0,700,200,null);
-                }
-                catch (Exception e)
+                } catch (Exception e)
                 {
                     e.printStackTrace();
                 }
@@ -157,8 +176,7 @@ public class FileChoosePanel extends JPanel {
                         AppMainWindow.mainPanel.add(AppMainWindow.functionChoosepanel,BorderLayout.CENTER);
                         AppMainWindow.mainPanel.updateUI();
 
-                    }
-                    catch (Exception e)
+                    } catch (Exception e)
                     {
                         AppMainWindow.ReInputFlag = 1;
 

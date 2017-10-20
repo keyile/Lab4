@@ -1,14 +1,17 @@
-package lab1.functionPanel;
+package gui.functionPanel;
 
-import lab1.AppMainWindow;
-import lab1.MyIconButton;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
+import gui.AppMainWindow;
+import gui.MyIconButton;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 /**
  * Created by Hunter on 2017/9/22.
@@ -16,34 +19,39 @@ import java.io.File;
 public class FunctionChoosePanel extends JPanel
 {
 
-    public final static ImageIcon ICON_STOP = new ImageIcon(
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6010549810662661199L;
+
+	public static final ImageIcon ICON_STOP = new ImageIcon(
             AppMainWindow.class.getResource("20170925180126.png"));
 
-    public final static ImageIcon ICON_STOP_ENABLE = new ImageIcon(
+    public static final ImageIcon ICON_STOP_ENABLE = new ImageIcon(
             AppMainWindow.class.getResource("20170925180158.png"));
     // 停止 失效
-    public final static ImageIcon ICON_STOP_DISABLE = new ImageIcon(
+    public static final ImageIcon ICON_STOP_DISABLE = new ImageIcon(
             AppMainWindow.class.getResource("20170925180257.png"));
     // 立即同步 默认
-    public final static ImageIcon ICON_SYNC_NOW = new ImageIcon(
+    public static final ImageIcon ICON_SYNC_NOW = new ImageIcon(
             AppMainWindow.class.getResource("20170925180226.png"));
     // 立即同步 激活
-    public final static ImageIcon ICON_SYNC_NOW_ENABLE = new ImageIcon(
+    public static final ImageIcon ICON_SYNC_NOW_ENABLE = new ImageIcon(
             AppMainWindow.class.getResource("20170925180406.png"));
     // 立即同步 失效
-    public final static ImageIcon ICON_SYNC_NOW_DISABLE = new ImageIcon(
+    public static final ImageIcon ICON_SYNC_NOW_DISABLE = new ImageIcon(
             AppMainWindow.class.getResource("20170925180437.png"));
 
-    public final static ImageIcon ICON7 = new ImageIcon(
+    public static final ImageIcon ICON7 = new ImageIcon(
             AppMainWindow.class.getResource("20170925180555.png"));
-    public final static ImageIcon ICON8 = new ImageIcon(
+    public static final ImageIcon ICON8 = new ImageIcon(
             AppMainWindow.class.getResource("20170925180529.png"));
-    public final static ImageIcon ICON9 = new ImageIcon(
+    public static final ImageIcon ICON9 = new ImageIcon(
             AppMainWindow.class.getResource("20170925180619.png"));
-    public final static ImageIcon ICON10 = new ImageIcon(
+    public static final ImageIcon ICON10 = new ImageIcon(
             AppMainWindow.class.getResource("20170925180655.png"));
 
-    public final static int MAIN_H_GAP = 25;
+    public static final int MAIN_H_GAP = 25;
 
     public static MyIconButton ShowGraphButton;
     public static MyIconButton QueryBridgeWordsButton;
@@ -51,7 +59,7 @@ public class FunctionChoosePanel extends JPanel
     public static MyIconButton CalcShortestPathButton;
     public static MyIconButton RandomWalkButton;
 
-    private Image Img;
+    //private Image Img;
 
     public FunctionChoosePanel()
     {
@@ -148,7 +156,7 @@ public class FunctionChoosePanel extends JPanel
                 EventQueue.invokeLater(new Runnable() {
                     public void run() {
                         System.out.println(AppMainWindow.ImagePath);
-                        ShowGraphPanel a = new ShowGraphPanel();
+                        new ShowGraphPanel();
                     }
                 });
             }
@@ -159,7 +167,8 @@ public class FunctionChoosePanel extends JPanel
             public void actionPerformed(ActionEvent event)
             {
                 AppMainWindow.mainPanel.removeAll();
-                AppMainWindow.mainPanel.add(AppMainWindow.queryBridgewordsPanel,BorderLayout.CENTER);
+                AppMainWindow.mainPanel.add(AppMainWindow.queryBridgewordsPanel,
+                		BorderLayout.CENTER);
                 AppMainWindow.mainPanel.updateUI();
             }
         });

@@ -1,11 +1,11 @@
-package lab1;
+package gui;
 
 import java.awt.Insets;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-/**
+/**.
  * 自定义按钮类，支持自定义默认图标、激活图标、失效图标和tip提示
  *
  * @author Bob
@@ -14,10 +14,11 @@ import javax.swing.JButton;
 public class MyIconButton extends JButton {
 
     private static final long serialVersionUID = 1L;
-    private ImageIcon iconEnable, iconDisable;
+    private ImageIcon iconEnable;
+    private ImageIcon iconDisable;
     private String tip;
 
-    /**
+    /**.
      * 构造
      *
      * @param iconNormal  默认图标
@@ -36,7 +37,7 @@ public class MyIconButton extends JButton {
         setUp();
     }
 
-    /**
+    /**.
      * 初始化，设置按钮属性：无边，无焦点渲染，无内容区，各边距0
      */
     private void initialize() {
@@ -47,7 +48,7 @@ public class MyIconButton extends JButton {
         this.setMargin(new Insets(0, 0, 0, 0));
     }
 
-    /**
+    /**.
      * 设置按钮图标：鼠标移过、按压、失效的图标 和设置按钮提示
      */
     private void setUp() {

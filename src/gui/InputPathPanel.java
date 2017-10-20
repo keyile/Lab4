@@ -1,30 +1,42 @@
-package lab1;
+package gui;
 
-import Dot.DotCompiler;
-import lab1.functionPanel.*;
-import Graph.*;
-import javax.swing.*;
-import java.awt.*;
+import dot.DotCompiler;
+import graph.Graph;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  * Created by Hunter on 2017/9/20.
  */
 public class InputPathPanel extends JPanel {
 
-    public final static ImageIcon ICON_STOP = new ImageIcon(
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    public static final ImageIcon ICON_STOP = new ImageIcon(
             AppMainWindow.class.getResource("20170925175557.png"));
-    public final static ImageIcon ICON_STOP_ENABLE = new ImageIcon(
+    public static final ImageIcon ICON_STOP_ENABLE = new ImageIcon(
             AppMainWindow.class.getResource("20170925175632.png"));
-    public final static ImageIcon ICON_SYNC_NOW = new ImageIcon(
+    public static final ImageIcon ICON_SYNC_NOW = new ImageIcon(
             AppMainWindow.class.getResource("20170925175935.png"));
-    public final static ImageIcon ICON_SYNC_NOW_ENABLE = new ImageIcon(
+    public static final ImageIcon ICON_SYNC_NOW_ENABLE = new ImageIcon(
             AppMainWindow.class.getResource("20170925175903.png"));
 
 
-    public final static int MAIN_H_GAP = 25;
+    public static final int MAIN_H_GAP = 25;
 
     final JTextField textField = new JTextField("",100);
 
@@ -131,8 +143,7 @@ public class InputPathPanel extends JPanel {
                     AppMainWindow.mainPanel.add(AppMainWindow.functionChoosepanel,BorderLayout.CENTER);
                     AppMainWindow.mainPanel.updateUI();
 
-                }
-                catch (Exception e)
+                } catch (Exception e)
                 {
                     AppMainWindow.ReInputFlag = 1;
                     textField.setText("");

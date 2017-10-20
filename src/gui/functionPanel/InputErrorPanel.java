@@ -1,14 +1,19 @@
-package lab1.functionPanel;
-
-import Graph.Graph;
-import lab1.AppMainWindow;
-import lab1.MyIconButton;
+package gui.functionPanel;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+
+import gui.AppMainWindow;
+import gui.MyIconButton;
+
 import java.io.File;
-import javax.imageio.ImageIO;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,19 +21,23 @@ import java.awt.event.ActionListener;
 /**
  * Created by Hunter on 2017/9/24.
  */
-public class InputErrorPanel extends JPanel{
+public class InputErrorPanel extends JPanel {
 
-    // 停止 默认
-    public final static ImageIcon Quit_Now = new ImageIcon(
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7985442746398666876L;
+	// 停止 默认
+    public static final ImageIcon Quit_Now = new ImageIcon(
             AppMainWindow.class.getResource("20170925190614.png"));
     // 停止 激活
-    public final static ImageIcon Quit_Now_ENABLE = new ImageIcon(
+    public static final ImageIcon Quit_Now_ENABLE = new ImageIcon(
             AppMainWindow.class.getResource("20170925190543.png"));
     // 立即同步 默认
-    public final static ImageIcon ReInput_NOW = new ImageIcon(
+    public static final ImageIcon ReInput_NOW = new ImageIcon(
             AppMainWindow.class.getResource("20170925175935.png"));
     // 立即同步 激活
-    public final static ImageIcon ReInput_NOW_ENABLE = new ImageIcon(
+    public static final ImageIcon ReInput_NOW_ENABLE = new ImageIcon(
             AppMainWindow.class.getResource("20170925175903.png"));
 
 
@@ -61,15 +70,18 @@ public class InputErrorPanel extends JPanel{
     {
         JPanel UpPanel = new JPanel()
         {
-            public  void paint(Graphics g)
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = -5005953500910041064L;
+
+			public  void paint(Graphics g)
             {
                 try
                 {
                     img = ImageIO.read(new File(AppMainWindow.class.getResource("20170925191435.png").toURI()));
                     g.drawImage(img,0,0,350,173,null);
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -139,6 +151,7 @@ public class InputErrorPanel extends JPanel{
                     case 4:
                         AppMainWindow.mainPanel.add(AppMainWindow.queryBridgewordsPanel,BorderLayout.CENTER);
                         break;
+                    default: break;
                 }
                 AppMainWindow.mainPanel.updateUI();
             }

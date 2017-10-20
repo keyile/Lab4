@@ -1,31 +1,37 @@
-package lab1.functionPanel;
+package gui.functionPanel;
 
-import Graph.Graph;
-import lab1.AppMainWindow;
-import lab1.MyIconButton;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.Image;
 
-import java.awt.*;
-import java.io.*;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import gui.AppMainWindow;
 /**
  * Created by Hunter on 2017/9/22.
  */
+
 public class ShowGraphPanel extends JPanel {
 
-    public JFrame graphWindow = new JFrame();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 455758487872282992L;
 
-    public final static int MAIN_WINDOW_X = 240;
-    public final static int MAIN_WINDOW_Y = 50;
-    public final static int MAIN_WINDOW_WIDTH = 1200;
-    public final static int MAIN_WINDOW_HEIGHT = 960;
+	public JFrame graphWindow = new JFrame();
+
+    public static final int MAIN_WINDOW_X = 240;
+    public static final int MAIN_WINDOW_Y = 50;
+    public static final int MAIN_WINDOW_WIDTH = 1200;
+    public static final int MAIN_WINDOW_HEIGHT = 960;
 
     private JLabel GraphLabel;
-
-    private Image GraphImg;
 
     public ShowGraphPanel()
     {
